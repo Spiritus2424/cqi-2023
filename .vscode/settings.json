@@ -1,0 +1,13 @@
+{
+    "workbench.editor.highlightModifiedTabs": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true,
+        "source.organizeImports": true,
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.linkedEditing": true,
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+}
