@@ -18,6 +18,10 @@
 			]
 		}
 	},
+	"mounts": [
+		"source=${localEnv:HOME}/.ssh,target=/home/node/.ssh,type=bind",
+		"source=node_modules,target=/workspaces/cqi-2023/node_modules,type=volume"
+	],
 	"settings": {
 		"terminal.integrated.defaultProfile.linux": "zsh"
 	},
