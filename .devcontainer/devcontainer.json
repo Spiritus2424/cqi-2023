@@ -2,12 +2,9 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.238.0/containers/javascript-node
 {
 	"name": "CQI-2023",
-	"build": {
-		"dockerfile": "Dockerfile",
-		"args": {
-			"VARIANT": "16-bullseye"
-		}
-	},
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "cqi-server",
+	"workspaceFolder": "/workspaces",
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -18,15 +15,8 @@
 			]
 		}
 	},
-	"mounts": [
-		"source=${localEnv:HOME}/.ssh,target=/home/node/.ssh,type=bind",
-		"source=node_modules,target=/workspaces/cqi-2023/node_modules,type=volume"
-	],
 	"settings": {
 		"terminal.integrated.defaultProfile.linux": "zsh"
 	},
-	"forwardPorts": [
-		3000
-	],
 	"remoteUser": "node"
 }

@@ -4,7 +4,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
 ARG USER=node
 RUN su node -c "npm install -g @nestjs/cli"
 
-WORKDIR /workspaces/cqi-2023/
+WORKDIR /workspaces
 
 RUN mkdir -p node_modules && \
     chown -R $USER:$USER node_modules
