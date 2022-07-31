@@ -1,9 +1,12 @@
-import { Module } from '@nestjs/common';
-import { AlgorithmModule } from './algorithm/algorithm.module';
+import { HttpModule } from '@nestjs/axios';
+import { Global, Module } from '@nestjs/common';
+import { JudgeService } from './compiler/judge/judge.service';
 import { DatabaseModule } from './database/database.module';
-import { ProgrammingLanguageModule } from './programming-language/programming-language.module';
 
+@Global()
 @Module({
-	imports: [AlgorithmModule, ProgrammingLanguageModule, DatabaseModule],
+	imports: [DatabaseModule, HttpModule],
+	providers: [JudgeService],
+	exports: [JudgeService],
 })
 export class CoreModule {}
