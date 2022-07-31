@@ -13,14 +13,14 @@ datasource db {
 model ProgrammingLanguage {
   id       Int        @id
   name     String     @unique
-  Solution Solution[]
+  solutions Solution[]
 }
 
 model Problem {
   id       Int        @id @default(autoincrement())
   name     String
   problem  String
-  Solution Solution[]
+  solutions Solution[]
 }
 
 model Solution {
