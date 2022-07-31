@@ -20,23 +20,36 @@ services:
     ports:
       - '3000:3000'
     depends_on:
-      - "judge0-server"
+      - 'judge0-server'
+      - 'cqi-db'
     command: /bin/sh -c "sleep infinity"
 
+  cqi-db:
+    container_name: cqi-db
+    image: postgres:13.0
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: cqi
+    volumes:
+      - cqi-postgres-data:/var/lib/postgresql/data/
+    restart: always
+
   judge0-server:
+    container_name: judge0-server
     image: judge0/judge0:1.13.0
     volumes:
       - ./judge0.conf:/judge0.conf:ro
     ports:
       - '2358:2358'
     depends_on:
-      - "judge0-db"
-      - "judge0-redis"
+      - 'judge0-db'
+      - 'judge0-redis'
     privileged: true
     <<: *default-logging
     restart: always
 
   judge0-workers:
+    container_name: judge0-workers
     image: judge0/judge0:1.13.0
     command: ['./scripts/workers']
     volumes:
@@ -44,19 +57,21 @@ services:
     privileged: true
     <<: *default-logging
     depends_on:
-      - "judge0-db"
-      - "judge0-redis"
+      - 'judge0-db'
+      - 'judge0-redis'
     restart: always
 
   judge0-db:
+    container_name: judge0-db
     image: postgres:13.0
     env_file: judge0.conf
     volumes:
-      - postgres-data:/var/lib/postgresql/data/
+      - judge0-postgres-data:/var/lib/postgresql/data/
     <<: *default-logging
     restart: always
 
   judge0-redis:
+    container_name: judge0-redis
     image: redis:6.0
     command:
       [
@@ -72,5 +87,6 @@ services:
 
 volumes:
   server-node_modules:
-  postgres-data:
+  cqi-postgres-data:
+  judge0-postgres-data:
   redis-data:
