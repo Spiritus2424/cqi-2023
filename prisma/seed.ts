@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 async function main() {
 	console.log('Seeding ...');
-	await prisma.programmingLanguage.createMany({
+	await prisma.compiler.createMany({
 		data: [
 			{ id: 0, name: 'Java' },
 			{ id: 1, name: 'C#' },
@@ -13,6 +13,31 @@ async function main() {
 		skipDuplicates: true,
 	});
 
+	await prisma.problem.createMany({
+		data: [
+			{
+				id: 0,
+				name: 'Two Sum',
+				description: 'Blablabla',
+			},
+		],
+		skipDuplicates: true,
+	});
+
+	await prisma.codeTemplate.createMany({
+		data: [
+			{
+				compilerId: 0,
+				problemId: 0,
+				template: `class Solution {
+					public int[] twoSum(int[] nums, int target) {
+
+					}
+				}`,
+			},
+		],
+		skipDuplicates: true,
+	});
 	console.log('Completed!');
 }
 
