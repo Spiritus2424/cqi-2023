@@ -1,10 +1,10 @@
-import { ProgrammingLanguage } from '@prisma/client';
+import { Compiler } from '@prisma/client';
 
 export type Token = string;
 
 export interface Submission {
 	sourceCode: string | File;
-	languageId: number | ProgrammingLanguage;
+	compilerId: number | Compiler;
 	stdin?: string;
 	expectedOutput?: string;
 }
