@@ -1,0 +1,19 @@
+@hostname=http://localhost:3000
+
+### Exemple pour tester avec un `multi/form-data` RESPECTER les sauts de lignes!!
+POST {{hostname}}/algorithm/java HTTP/1.1
+Content-Type: multipart/form-data;boundary="boundary"
+
+--boundary
+Content-Disposition: form-data; name="patate"
+
+value1
+--boundary
+Content-Disposition: form-data; name="file"; filename="example.txt"
+Content-Type: text/plain
+
+< ./file.txt
+--boundary--
+
+###
+
