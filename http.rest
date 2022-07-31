@@ -15,5 +15,13 @@ Content-Type: text/plain
 < ./file.txt
 --boundary--
 
-###
+### Get all compiler supported by CQI
+GET {{hostname}}/compilers?name=ja HTTP/1.1
+Content-Type: application/json
+
+
+### Get compiler by id
+GET {{hostname}}/compilers/0 HTTP/1.1
+
+
 
