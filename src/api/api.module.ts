@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AlgorithmModule } from './algorithm/algorithm.module';
+import { AlgorithmController } from './algorithm/algorithm.controller';
+import { CompilerController } from './compiler/compiler.controller';
 
 @Module({
-	imports: [AlgorithmModule],
+	controllers: [CompilerController, AlgorithmController],
 })
 export class ApiModule {}
