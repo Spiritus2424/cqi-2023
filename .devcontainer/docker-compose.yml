@@ -16,7 +16,7 @@ services:
     volumes:
       - ..:/workspaces:cached
       - $HOME/.ssh:/home/node/.ssh
-      - server-node_modules:/workspaces/node_modules
+      - cqi-server-node_modules:/workspaces/node_modules
     ports:
       - '3000:3000'
     depends_on:
@@ -86,7 +86,7 @@ services:
     restart: always
 
 volumes:
-  server-node_modules:
+  cqi-server-node_modules:
   cqi-postgres-data:
   judge0-postgres-data:
   redis-data:
