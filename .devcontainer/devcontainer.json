@@ -11,7 +11,8 @@
 				"dbaeumer.vscode-eslint",
 				"esbenp.prettier-vscode",
 				"editorconfig.editorconfig",
-				"mhutchie.git-graph"
+				"mhutchie.git-graph",
+				"Prisma.prisma"
 			]
 		}
 	},
