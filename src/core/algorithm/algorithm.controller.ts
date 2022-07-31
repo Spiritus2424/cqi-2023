@@ -6,7 +6,6 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { writeFileSync } from 'fs';
-import { PythonShell } from 'python-shell';
 
 @Controller('algorithm')
 export class AlgorithmController {
@@ -14,15 +13,6 @@ export class AlgorithmController {
 	@UseInterceptors(FileInterceptor('file'))
 	uploadFile(@UploadedFile() file: Express.Multer.File) {
 		writeFileSync(file.originalname, file.buffer);
-
-		const options = {
-			pythonOptions: ['-u'], // get print results in real-time
-		};
-		PythonShell.run(file.originalname, options, function (err, results) {
-			if (err) throw err;
-			console.log(results);
-			console.log('finished');
-		});
 	}
 
 	@Post('java')
