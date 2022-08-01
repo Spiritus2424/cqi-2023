@@ -29,11 +29,12 @@ async function main() {
 			{
 				compilerId: 62,
 				problemId: 0,
-				template: `class Solution {
-					public int[] twoSum(int[] nums, int target) {
+				template: `
+class Solution {
+	public int[] twoSum(int[] nums, int target) {
 
-					}
-				}`,
+	}
+}`,
 			},
 		],
 		skipDuplicates: true,
@@ -44,23 +45,23 @@ async function main() {
 			{
 				compilerId: 62,
 				problemId: 0,
-				solution: `import java.util.Arrays;
-				class Main {
-					public static void main(String args[])
-					{
-						Solution solution = new Solution();
-						int[] nums = {1, 2, 3};
-						int target = 3;
-						int[] answer = {0,1};
-						int[] response = solution.twoSum(nums, target);
-						if(Arrays.equals(response, answer)) {
-							System.out.println("SUCCESS");
-						} else {
-							System.out.println("ERROR");
-						}
-					}
-				}
-				`,
+				solution: `
+import java.util.Arrays;
+class Main {
+	public static void main(String args[])
+	{
+		Solution solution = new Solution();
+		int[] nums = {1, 2, 3};
+		int target = 3;
+		int[] answer = {0,1};
+		int[] response = solution.twoSum(nums, target);
+		if(Arrays.equals(response, answer)) {
+			System.out.println("SUCCESS");
+		} else {
+			System.out.println("ERROR");
+		}
+	}
+}`,
 			},
 		],
 		skipDuplicates: true,
