@@ -16,10 +16,9 @@ export class AlgorithmController {
 			body.compilerId,
 			body.problemId,
 		);
-		console.log(codeSolution.solution);
 		return this._judgeService.submitCode({
 			compilerId: body.compilerId,
-			sourceCode: codeSolution.solution,
+			sourceCode: codeSolution.solution.concat('\n').concat(body.code),
 		});
 	}
 }
