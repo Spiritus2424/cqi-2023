@@ -1,33 +1,34 @@
 import {
 	Body,
 	Controller,
+	Param,
+	ParseIntPipe,
 	Post,
 	UploadedFile,
 	UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { writeFileSync } from 'fs';
-import { JudgeService } from '../../core/compiler/judge/judge.service';
+import { JudgeService } from '../../core/judge/judge.service';
+import { SubmitCodeDto } from './dto/submit-code.dto';
 
 @Controller('algorithm')
 export class AlgorithmController {
-	constructor(private readonly _compiler: JudgeService) {}
+	constructor(private readonly _judgeService: JudgeService) {}
 
-	@Post('upload')
+	@Post('submit-code/:compilerId')
 	@UseInterceptors(FileInterceptor('file'))
-	uploadFile(@UploadedFile() file: Express.Multer.File) {
-		writeFileSync(file.originalname, file.buffer);
-	}
-
-	@Post('java')
-	@UseInterceptors(FileInterceptor('file'))
-	async compileJava(
+	async submitCode(
 		@UploadedFile() file: Express.Multer.File,
-		@Body() body: any,
-	) {
+		@Param('compilerId', ParseIntPipe) compilerId: number,
+		@Body()
+		body: SubmitCodeDto,
+	): Promise<string> {
 		console.log(file);
-		console.log(body);
-
-		return body;
+		console.log(body.code);
+		console.log(compilerId);
+		return await this._judgeService.submitCode({
+			compilerId: compilerId,
+			sourceCode: file.buffer.toString(),
+		});
 	}
 }
