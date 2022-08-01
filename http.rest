@@ -7,7 +7,7 @@ Content-Type: application/json
 {
 	"compilerId": 62,
 	"problemId": 0,
-	"code": "\n class Solution { public int[] twoSum(int[] nums, int target) { int[] sol = {0,1}; return sol; } }"
+	"code": "class Solution { public int[] twoSum(int[] nums, int target) { int[] sol = {0,2}; return sol; } }"
 }
 
 ### Get all compiler supported by CQI
