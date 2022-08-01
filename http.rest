@@ -1,5 +1,5 @@
 @hostname=http://localhost:3000
-
+@judgeHostname=http://judge0-server:2358
 ###
 POST {{hostname}}/algorithm/submit-code HTTP/1.1
 Content-Type: application/json
@@ -7,8 +7,11 @@ Content-Type: application/json
 {
 	"compilerId": 62,
 	"problemId": 0,
-	"code": "class Solution { public int[] twoSum(int[] nums, int target) { int[] sol = {0,2}; return sol; } }"
+	"code": "class Solution { public int[] twoSum(int[] nums, int target) { int[] sol = {0,1}; return sol; } }"
 }
+
+### Get Submission Judge01
+GET {{judgeHostname}}/submissions/3a46b296-c010-4e14-9953-729dfab4c34b HTTP/1.1
 
 ### Get all compiler supported by CQI
 GET {{hostname}}/compilers?name=ja HTTP/1.1

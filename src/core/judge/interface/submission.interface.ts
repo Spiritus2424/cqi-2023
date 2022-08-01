@@ -7,6 +7,7 @@ export interface Submission {
 	compilerId: number | Compiler;
 	stdin?: string;
 	expectedOutput?: string;
+	callbackUrl?: string;
 }
 
 export interface SubmissionResult {

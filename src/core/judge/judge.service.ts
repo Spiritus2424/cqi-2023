@@ -16,6 +16,7 @@ export class JudgeService {
 				this._httpService.post<Token>(this.JUDGE_URL.concat('submissions'), {
 					source_code: submission.sourceCode,
 					language_id: submission.compilerId,
+					callback_url: submission.callbackUrl,
 				}),
 			)
 		).data;

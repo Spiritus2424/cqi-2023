@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Put } from '@nestjs/common';
 import { CodeSolutionService } from 'src/core/code-solution/code-solution.service';
 import { JudgeService } from '../../core/judge/judge.service';
 import { SubmitCodeDto } from './dto/submit-code.dto';
@@ -19,6 +19,12 @@ export class AlgorithmController {
 		return this._judgeService.submitCode({
 			compilerId: body.compilerId,
 			sourceCode: codeSolution.solution.concat('\n').concat(body.code),
+			callbackUrl: 'http://cqi-server:3000/algorithm/submission-done',
 		});
+	}
+
+	@Put('submission-done')
+	async submissionDone(@Body() body: any): Promise<void> {
+		console.log(body);
 	}
 }
