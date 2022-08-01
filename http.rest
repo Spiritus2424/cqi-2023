@@ -1,18 +1,21 @@
 @hostname=http://localhost:3000
 
 ### Exemple pour tester avec un `multi/form-data` RESPECTER les sauts de lignes!!
-POST {{hostname}}/algorithm/java HTTP/1.1
+POST {{hostname}}/algorithm/submit-code/62 HTTP/1.1
+Accept: application/json
 Content-Type: multipart/form-data;boundary="boundary"
 
 --boundary
-Content-Disposition: form-data; name="patate"
+Content-Disposition: form-data; name="code"
+Content-Type: application/json
 
-value1
+blabla
+
 --boundary
-Content-Disposition: form-data; name="file"; filename="example.txt"
+Content-Disposition: form-data; name="file"; filename="example.java"
 Content-Type: text/plain
 
-< ./file.txt
+< ./file.java
 --boundary--
 
 ### Get all compiler supported by CQI
