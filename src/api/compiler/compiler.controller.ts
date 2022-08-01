@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { Compiler } from '@prisma/client';
 import { CompilerService } from 'src/core/compiler/compiler.service';
 
@@ -12,9 +12,7 @@ export class CompilerController {
 	}
 
 	@Get(':id')
-	async findOne(
-		@Param('id', ParseIntPipe) compilerId: number,
-	): Promise<Compiler> {
+	async findOne(@Param('id') compilerId: number): Promise<Compiler> {
 		return this._compilerService.findOne(compilerId);
 	}
 }

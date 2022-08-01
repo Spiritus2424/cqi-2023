@@ -1,6 +1,10 @@
-import { IsString } from 'class-validator';
+import { IsInt, IsOptional, IsString } from 'class-validator';
 
 export class SubmitCodeDto {
-	@IsString({ always: false })
+	@IsString()
+	@IsOptional()
 	code?: string;
+
+	@IsInt()
+	compilerId: number;
 }
