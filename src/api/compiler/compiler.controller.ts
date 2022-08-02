@@ -1,7 +1,9 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Compiler } from '@prisma/client';
 import { CompilerService } from 'src/core/compiler/compiler.service';
 
+@ApiTags('Compiler')
 @Controller('compilers')
 export class CompilerController {
 	constructor(private readonly _compilerService: CompilerService) {}

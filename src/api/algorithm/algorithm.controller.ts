@@ -1,8 +1,10 @@
 import { Body, Controller, Post, Put } from '@nestjs/common';
+import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
 import { CodeSolutionService } from 'src/core/code-solution/code-solution.service';
 import { JudgeService } from '../../core/judge/judge.service';
 import { SubmitCodeDto } from './dto/submit-code.dto';
 
+@ApiTags('Algorithm')
 @Controller('algorithm')
 export class AlgorithmController {
 	constructor(
@@ -23,6 +25,7 @@ export class AlgorithmController {
 		});
 	}
 
+	@ApiExcludeEndpoint()
 	@Put('submission-done')
 	async submissionDone(@Body() body: any): Promise<void> {
 		console.log(body);
