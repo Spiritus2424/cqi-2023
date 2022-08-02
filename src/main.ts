@@ -12,8 +12,8 @@ async function bootstrap() {
 	);
 
 	const config = new DocumentBuilder()
-		.setTitle('CQI Server')
-		.setDescription('The CQI Server API description')
+		.setTitle('CQI 2023 Server')
+		.setDescription('The CQI 2023 Server API description')
 		.setVersion('0.1')
 		.build();
 
