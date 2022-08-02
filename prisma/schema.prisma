@@ -10,25 +10,41 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model ProgrammingLanguage {
-  id       Int        @id
-  name     String     @unique
-  solutions Solution[]
+model Compiler {
+  id   Int    @id
+  name String @unique
+
+  codeTemplates CodeTemplate[]
+  codeSolutions CodeSolution[]
 }
 
 model Problem {
-  id       Int        @id @default(autoincrement())
-  name     String
-  problem  String
-  solutions Solution[]
+  id          Int    @id
+  name        String
+  description String
+
+  codeSolutions CodeSolution[]
+  codeTemplates CodeTemplate[]
 }
 
-model Solution {
-  problemId             Int
-  programmingLanguageId Int
-  solution              String
-  problem               Problem             @relation(fields: [problemId], references: [id])
-  programmingLanguage   ProgrammingLanguage @relation(fields: [programmingLanguageId], references: [id])
+model CodeTemplate {
+  compilerId Int
+  problemId  Int
+  template   String
 
-  @@id([problemId, programmingLanguageId])
+  problem  Problem  @relation(fields: [problemId], references: [id])
+  compiler Compiler @relation(fields: [compilerId], references: [id])
+
+  @@id([problemId, compilerId])
+}
+
+model CodeSolution {
+  problemId  Int
+  compilerId Int
+  solution   String
+
+  problem  Problem  @relation(fields: [problemId], references: [id])
+  compiler Compiler @relation(fields: [compilerId], references: [id])
+
+  @@id([problemId, compilerId])
 }
