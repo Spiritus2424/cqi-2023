@@ -12,8 +12,7 @@
 				"esbenp.prettier-vscode",
 				"editorconfig.editorconfig",
 				"mhutchie.git-graph",
-				"Prisma.prisma",
-				"humao.rest-client"
+				"Prisma.prisma"
 			]
 		}
 	},
