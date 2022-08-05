@@ -27,3 +27,16 @@ export interface Status {
 	id: number;
 	description: string;
 }
+
+export interface JudgeSubmissionResult {
+	stdout: string;
+	time: string;
+	memory: string;
+	stderr: string;
+	token: Token;
+	compile_output: string;
+	message: string;
+	status: Status;
+	exitCode?: number;
+	exitSignal?: number;
+}
