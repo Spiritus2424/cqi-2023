@@ -1,7 +1,11 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import { lastValueFrom } from 'rxjs';
-import { Submission, Token } from './interface/submission.interface';
+import { lastValueFrom, map } from 'rxjs';
+import { JudgeSubmissionResponseDto } from './interface/judge-response.dto';
+import {
+	Submission,
+	SubmissionResponse,
+} from './interface/submission.interface';
 
 @Injectable()
 export class JudgeService {
@@ -10,17 +14,29 @@ export class JudgeService {
 		this.JUDGE_URL = 'http://judge0-server:2358/';
 	}
 
-	async submitCode(submission: Submission): Promise<Token> {
-		return (
-			await lastValueFrom(
-				this._httpService.post<Token>(this.JUDGE_URL.concat('submissions'), {
-					source_code: submission.sourceCode,
-					language_id: submission.compilerId,
-					expect_output: submission.expectedOutput,
-					stdin: submission.stdin,
-					callback_url: submission.callbackUrl,
-				}),
-			)
-		).data;
+	async submitCode(
+		submission: Submission,
+		waitForResult = true,
+	): Promise<SubmissionResponse> {
+		return lastValueFrom(
+			this._httpService
+				.post<JudgeSubmissionResponseDto>(
+					this.JUDGE_URL.concat('submissions').concat(`?wait=${waitForResult}`),
+					{
+						source_code: submission.sourceCode,
+						language_id: submission.compilerId,
+						expect_output: submission.expectedOutput,
+						stdin: submission.stdin,
+					},
+				)
+				.pipe(
+					map((response) => response.data),
+					map((data: JudgeSubmissionResponseDto): SubmissionResponse => {
+						const { compile_output: compileOutput } = data;
+						delete data.compile_output;
+						return { compileOutput, ...data };
+					}),
+				),
+		);
 	}
 }

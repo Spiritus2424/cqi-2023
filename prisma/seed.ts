@@ -56,9 +56,9 @@ class Main {
 		int[] answer = {0,1};
 		int[] response = solution.twoSum(nums, target);
 		if(Arrays.equals(response, answer)) {
-			System.out.println("SUCCESS");
+			System.exit(0);
 		} else {
-			System.out.println("ERROR");
+			System.exit(1);
 		}
 	}
 }`,
