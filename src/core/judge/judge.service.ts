@@ -1,10 +1,10 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { lastValueFrom, map } from 'rxjs';
+import { JudgeSubmissionResponseDto } from './interface/judge-response.dto';
 import {
-	JudgeSubmissionResult,
 	Submission,
-	SubmissionResult,
+	SubmissionResponse,
 } from './interface/submission.interface';
 
 @Injectable()
@@ -17,10 +17,10 @@ export class JudgeService {
 	async submitCode(
 		submission: Submission,
 		waitForResult = true,
-	): Promise<SubmissionResult> {
+	): Promise<SubmissionResponse> {
 		return lastValueFrom(
 			this._httpService
-				.post<JudgeSubmissionResult>(
+				.post<JudgeSubmissionResponseDto>(
 					this.JUDGE_URL.concat('submissions').concat(`?wait=${waitForResult}`),
 					{
 						source_code: submission.sourceCode,
@@ -31,7 +31,7 @@ export class JudgeService {
 				)
 				.pipe(
 					map((response) => response.data),
-					map((data): SubmissionResult => {
+					map((data: JudgeSubmissionResponseDto): SubmissionResponse => {
 						const { compile_output: compileOutput } = data;
 						delete data.compile_output;
 						return { compileOutput, ...data };

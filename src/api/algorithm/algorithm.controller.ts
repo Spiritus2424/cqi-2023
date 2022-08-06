@@ -2,10 +2,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { CodeSolutionService } from 'src/core/code-solution/code-solution.service';
 import { JudgeService } from '../../core/judge/judge.service';
-import {
-	SubmitCodeResponseDto,
-	SubmitStatus,
-} from './dto/submit-code-response.dto';
+import { SubmitCodeResponseDto } from './dto/submit-code-response.dto';
 import { SubmitCodeDto } from './dto/submit-code.dto';
 
 @ApiTags('Algorithm')
@@ -26,16 +23,22 @@ export class AlgorithmController {
 			body.problemId,
 		);
 
-		const submitResult = await this._judgeService.submitCode({
+		const submitResponse = await this._judgeService.submitCode({
 			compilerId: body.compilerId,
 			sourceCode: codeSolution.solution.concat('\n').concat(body.code),
 		});
 
+		console.log(submitResponse);
 		return {
-			status: SubmitStatus.SUCCESS,
-			compileOutput: submitResult.compileOutput,
-			message: submitResult.message,
-			stderr: submitResult.stderr,
+			status:
+				submitResponse.stderr === null &&
+				submitResponse.message === null &&
+				submitResponse.compileOutput === null
+					? 'SUCCESS'
+					: 'ERROR',
+			compileOutput: submitResponse.compileOutput,
+			message: submitResponse.message,
+			stderr: submitResponse.stderr,
 		};
 	}
 }

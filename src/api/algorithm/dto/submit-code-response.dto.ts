@@ -1,9 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export enum SubmitStatus {
-	SUCCESS,
-	ERROR,
-}
+export type SubmitStatus = 'SUCCESS' | 'ERROR';
 
 export class SubmitCodeResponseDto {
 	@ApiProperty()
