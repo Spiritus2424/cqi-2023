@@ -18,7 +18,7 @@ export class CompilerService {
 	}
 
 	async findOne(id: number): Promise<Compiler> {
-		return this._prismaService.compiler.findUnique({
+		return this._prismaService.compiler.findUniqueOrThrow({
 			where: {
 				id: id,
 			},

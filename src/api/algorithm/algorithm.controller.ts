@@ -1,5 +1,6 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, NotFoundException, Post } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { CodeSolution } from '@prisma/client';
 import { CodeSolutionService } from 'src/core/code-solution/code-solution.service';
 import { JudgeService } from '../../core/judge/judge.service';
 import { SubmitCodeResponseDto } from './dto/submit-code-response.dto';
@@ -13,22 +14,29 @@ export class AlgorithmController {
 		private readonly _codeSolutionService: CodeSolutionService,
 	) {}
 
-	@ApiOkResponse()
+	@ApiOkResponse({ type: SubmitCodeResponseDto })
 	@Post('submit-code')
 	async submitCode(
 		@Body() body: SubmitCodeDto,
 	): Promise<SubmitCodeResponseDto> {
-		const codeSolution = await this._codeSolutionService.findOne(
-			body.compilerId,
-			body.problemId,
-		);
+		let codeSolution: CodeSolution;
+
+		try {
+			codeSolution = await this._codeSolutionService.findOne(
+				body.compilerId,
+				body.problemId,
+			);
+		} catch (error) {
+			throw new NotFoundException({
+				error: 'Compiler Not Found. You can check at {host}/compilers',
+			});
+		}
 
 		const submitResponse = await this._judgeService.submitCode({
 			compilerId: body.compilerId,
 			sourceCode: codeSolution.solution.concat('\n').concat(body.code),
 		});
 
-		console.log(submitResponse);
 		return {
 			status:
 				submitResponse.stderr === null &&
