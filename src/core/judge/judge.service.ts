@@ -16,7 +16,7 @@ export class JudgeService {
 
 	async submitCode(
 		submission: Submission,
-		waitForResult = false,
+		waitForResult = true,
 	): Promise<SubmissionResult> {
 		return lastValueFrom(
 			this._httpService
@@ -27,7 +27,6 @@ export class JudgeService {
 						language_id: submission.compilerId,
 						expect_output: submission.expectedOutput,
 						stdin: submission.stdin,
-						callback_url: submission.callbackUrl,
 					},
 				)
 				.pipe(
@@ -39,7 +38,5 @@ export class JudgeService {
 					}),
 				),
 		);
-
-		// return '';
 	}
 }

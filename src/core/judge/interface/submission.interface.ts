@@ -1,19 +1,16 @@
-import { Compiler } from '@prisma/client';
-
 export type Token = string;
 
 export interface Submission {
-	sourceCode: string | File;
-	compilerId: number | Compiler;
+	sourceCode: string;
+	compilerId: number;
 	stdin?: string;
 	expectedOutput?: string;
-	callbackUrl?: string;
 }
 
 export interface SubmissionResult {
+	token: Token;
 	stdout: string;
 	stderr: string;
-	token: Token;
 	status: Status;
 	compileOutput: string;
 	message: string;
