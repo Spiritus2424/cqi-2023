@@ -48,3 +48,17 @@ model CodeSolution {
 
   @@id([problemId, compilerId])
 }
+
+model School {
+  id      Int       @id
+  name    String
+  Student Student[]
+}
+
+model Student {
+  id       Int    @id
+  name     String
+  schoolId Int
+
+  school School @relation(fields: [schoolId], references: [id])
+}
