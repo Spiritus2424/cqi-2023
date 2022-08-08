@@ -6,6 +6,7 @@ import { CodeTemplateService } from './code-template/code-template.service';
 import { CompilerService } from './compiler/compiler.service';
 import { DatabaseModule } from './database/database.module';
 import { JudgeService } from './judge/judge.service';
+import { SchoolService } from './school/school.service';
 import { UserService } from './user/user.service';
 
 @Global()
@@ -17,6 +18,7 @@ import { UserService } from './user/user.service';
 		CodeTemplateService,
 		CodeSolutionService,
 		UserService,
+		SchoolService,
 	],
 	exports: [
 		AuthModule,
@@ -25,6 +27,7 @@ import { UserService } from './user/user.service';
 		CodeTemplateService,
 		CodeSolutionService,
 		UserService,
+		SchoolService,
 	],
 })
 export class CoreModule {}
