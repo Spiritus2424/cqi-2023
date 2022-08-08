@@ -6,11 +6,11 @@ import { PrismaService } from '../database/prisma/prisma.service';
 export class CompilerService {
 	constructor(private readonly _prismaService: PrismaService) {}
 
-	async findMany(name?: string): Promise<Compiler[]> {
+	async findMany(compilerName?: string): Promise<Compiler[]> {
 		return this._prismaService.compiler.findMany({
 			where: {
 				name: {
-					contains: name,
+					contains: compilerName,
 					mode: 'insensitive',
 				},
 			},
