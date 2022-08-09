@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
@@ -12,13 +12,20 @@ export class AuthService {
 	) {}
 
 	async validateUser(email: string, password: string): Promise<User> {
-		let user = await this._userService.findOne(email);
-
-		if (user && (await bcrypt.compare(password, user.password))) {
-			delete user.password;
-		} else {
-			user = null;
+		let user: User;
+		try {
+			user = await this._userService.findOne(email);
+			if (user && (await bcrypt.compare(password, user.password))) {
+				delete user.password;
+			} else {
+				user = null;
+			}
+		} catch (error) {
+			throw new UnauthorizedException({
+				message: 'Authentication error. Your email or password are wrong.',
+			});
 		}
+
 		return user;
 	}
 
