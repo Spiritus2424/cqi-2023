@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { SimpleProblem } from '@prisma/client';
+import { Exclude } from 'class-transformer';
 
 export class SimpleProblemDto implements SimpleProblem {
 	@ApiProperty()
@@ -12,5 +13,10 @@ export class SimpleProblemDto implements SimpleProblem {
 	description: string;
 
 	@ApiProperty()
+	@Exclude()
 	answer: string;
+
+	constructor(partial: Partial<SimpleProblemDto>) {
+		Object.assign(this, partial);
+	}
 }
