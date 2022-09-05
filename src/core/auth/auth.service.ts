@@ -45,4 +45,19 @@ export class AuthService {
 		user.password = hashPassword;
 		return await this._userService.create(user);
 	}
+
+	async resetPassword(
+		email: string,
+		oldPassword: string,
+		newPassword: string,
+	): Promise<User> {
+		const user = await this.validateUser(email, oldPassword);
+
+		const newHashPassword = await bcrypt.hash(
+			newPassword,
+			await bcrypt.genSalt(),
+		);
+		user.password = newHashPassword;
+		return this._userService.updateUser(user);
+	}
 }

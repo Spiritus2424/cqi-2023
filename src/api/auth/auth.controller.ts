@@ -6,6 +6,10 @@ import { Roles } from 'src/core/auth/decorator/role.decorator';
 import { JwtAuthGuard } from 'src/core/auth/guard/jwt-auth.guard';
 import { LocalAuthGuard } from 'src/core/auth/guard/local-auth.guard';
 import { LoginDto, LoginResponseDto } from './dto/login.dto';
+import {
+	ResetPasswordDto,
+	ResetPasswordResponseDto,
+} from './dto/reset-password.dto';
 import { SignUpDto, SignUpResponseDto } from './dto/sign-up.dto';
 
 @ApiTags('Authentication')
@@ -28,5 +32,17 @@ export class AuthController {
 	@Post('sign-up')
 	async signUp(@Body() newUser: SignUpDto): Promise<SignUpResponseDto> {
 		return this._authService.signUp({ id: undefined, ...newUser });
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Post('reset-password')
+	async resetPassword(
+		@Body() resetPasswordDto: ResetPasswordDto,
+	): Promise<ResetPasswordResponseDto> {
+		const { email, oldPassword, newPassword } = resetPasswordDto;
+		await this._authService.resetPassword(email, oldPassword, newPassword);
+
+		return {};
+		// return this._authService.signUp({ id: undefined, ...newUser });
 	}
 }
