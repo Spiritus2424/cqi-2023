@@ -5,6 +5,7 @@ import { CompilerController } from './compiler/compiler.controller';
 import { OpenApiController } from './open-api/open-api.controller';
 import { UserController } from './user/user.controller';
 import { SchoolController } from './school/school.controller';
+import { SimpleProblemController } from './simple-problem/simple-problem.controller';
 
 @Module({
 	controllers: [
@@ -14,6 +15,7 @@ import { SchoolController } from './school/school.controller';
 		AuthController,
 		UserController,
 		SchoolController,
+		SimpleProblemController,
 	],
 })
 export class ApiModule {}
