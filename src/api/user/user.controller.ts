@@ -1,11 +1,4 @@
-import {
-	ClassSerializerInterceptor,
-	Controller,
-	Get,
-	NotFoundException,
-	Param,
-	UseInterceptors,
-} from '@nestjs/common';
+import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from 'src/core/user/user.service';
 import { UserDto } from './dto/user.dto';
@@ -15,7 +8,6 @@ import { UserDto } from './dto/user.dto';
 export class UserController {
 	constructor(private readonly _userService: UserService) {}
 
-	@UseInterceptors(ClassSerializerInterceptor)
 	@ApiOkResponse({ type: UserDto })
 	@Get(':id')
 	async findOne(@Param('id') id: number): Promise<UserDto> {
