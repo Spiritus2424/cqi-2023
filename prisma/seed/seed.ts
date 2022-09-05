@@ -1,10 +1,13 @@
 import { PrismaClient, Role } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import generateSimpleProblem from './simple-problem';
 
 const prisma = new PrismaClient();
 
 async function main() {
 	console.log('Seeding ...');
+	await generateSimpleProblem(prisma);
+
 	await prisma.school.createMany({
 		data: [
 			{ id: 0, name: 'Concordia' },
