@@ -10,6 +10,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Simple problem
+
+model SimpleProblem {
+  id          Int    @id
+  name        String
+  description String
+  answer      String
+}
+
+// Algorithm Model
+
 model Compiler {
   id   Int    @id
   name String @unique
