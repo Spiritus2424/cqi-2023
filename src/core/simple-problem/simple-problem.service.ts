@@ -16,4 +16,8 @@ export class SimpleProblemService {
 			},
 		});
 	}
+
+	async submitAnswer(problemId: number, answer: string): Promise<boolean> {
+
+	}
 }

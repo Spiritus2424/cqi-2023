@@ -26,4 +26,7 @@ export class SimpleProblemController {
 			return new SimpleProblemDto(value);
 		});
 	}
+
+	@Post('submit-answer')
+	async submitAnswer(): Promise<any> {}
 }
