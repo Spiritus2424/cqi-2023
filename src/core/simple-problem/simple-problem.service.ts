@@ -17,7 +17,11 @@ export class SimpleProblemService {
 		});
 	}
 
-	async submitAnswer(problemId: number, answer: string): Promise<boolean> {
-
+	async findOne(problemId: number): Promise<SimpleProblem> {
+		return this._prismaService.simpleProblem.findFirstOrThrow({
+			where: {
+				id: problemId,
+			},
+		});
 	}
 }
