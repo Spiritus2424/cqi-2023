@@ -1,0 +1,16 @@
+import java.util.Arrays;
+class Main {
+	public static void main(String args[])
+	{
+		Solution solution = new Solution();
+		int[] nums = {1, 2, 3};
+		int target = 3;
+		int[] answer = {0,1};
+		int[] response = solution.twoSum(nums, target);
+		if(Arrays.equals(response, answer)) {
+			System.exit(0);
+		} else {
+			System.exit(1);
+		}
+	}
+}
