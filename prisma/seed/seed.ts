@@ -1,8 +1,39 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Role } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
+import generateSimpleProblem from './simple-problem';
+
 const prisma = new PrismaClient();
 
 async function main() {
 	console.log('Seeding ...');
+	await generateSimpleProblem(prisma);
+
+	await prisma.school.createMany({
+		data: [
+			{ id: 0, name: 'Concordia' },
+			{ id: 1, name: 'McGill' },
+			{ id: 2, name: 'Polytechnique Montreal' },
+		],
+		skipDuplicates: true,
+	});
+
+	await prisma.user.createMany({
+		data: [
+			{
+				email: 'ahmad.faour@polymtl.ca',
+				firstName: 'Ahmad',
+				lastName: 'Faour',
+				password: await bcrypt.hash(
+					'NotMyRealPassword',
+					await bcrypt.genSalt(),
+				),
+				role: Role.ADMIN,
+				schoolId: 2,
+			},
+		],
+		skipDuplicates: true,
+	});
+
 	await prisma.compiler.createMany({
 		data: [
 			{ id: 62, name: 'Java (OpenJDK 13.0.1)' },

@@ -16,7 +16,7 @@ export class CompilerController {
 
 	@ApiQuery({
 		name: 'name',
-		description: 'The programming language supported',
+		description: 'Filter compilers by name',
 		required: false,
 		type: String,
 	})

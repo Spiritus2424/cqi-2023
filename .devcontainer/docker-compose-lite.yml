@@ -1,0 +1,38 @@
+version: '3.9'
+
+x-logging: &default-logging
+  logging:
+    driver: json-file
+    options:
+      max-size: 100m
+
+services:
+  cqi-server:
+    container_name: cqi-server
+    build:
+      context: ./
+      args:
+        VARIANT: 16-bullseye
+    volumes:
+      - ..:/workspaces:cached
+      - $HOME/.ssh:/home/node/.ssh
+      - cqi-server-node_modules:/workspaces/node_modules
+    ports:
+      - '3000:3000'
+    depends_on:
+      - 'cqi-db'
+    command: /bin/sh -c "sleep infinity"
+
+  cqi-db:
+    container_name: cqi-db
+    image: postgres:13.0
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: cqi
+    volumes:
+      - cqi-postgres-data:/var/lib/postgresql/data/
+    restart: always
+
+volumes:
+  cqi-server-node_modules:
+  cqi-postgres-data:
