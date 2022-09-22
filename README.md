@@ -10,6 +10,16 @@ Serveur pour la compétition de programmation de la CQI 2023
 $ yarn
 ```
 
+## Setup the database
+
+```bash
+# migrate
+$ yarn prisma:migrate
+
+# seed
+$ yarn prisma:seed
+```
+
 ## Running the app
 
 ```bash
